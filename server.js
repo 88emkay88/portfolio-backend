@@ -4,10 +4,20 @@ const nodemailer = require("nodemailer");
 const cors = require("cors");
 
 const app = express();
-app.use(express.json());
-app.use(cors({ origin: "http://127.0.0.1:5500" }));
 
-// Brevo SMTP
+
+const corsOptions = {
+    origin: "https://mukonamuisa.netlify.app",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+
+app.use(express.json());
+
+// SMTP
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
